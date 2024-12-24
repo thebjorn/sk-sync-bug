@@ -1,58 +1,62 @@
-# create-svelte
+The following message is printed (multiple times if using a monorepo):
+> If bundling, conditions should include development or production. If not bundling, conditions or NODE_ENV should include development or production. See https://www.npmjs.com/package/esm-env for tips on setting conditions in popular bundlers and runtimes.
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
-
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
+Normally you get this when running `pnpm build` (or `turbo build` in my case) in CI, but you can very simply reproduce it like so:
 ```bash
-# create a new project in the current directory
-npx sv create
+> sv create sk-sync-bug
+┌  Welcome to the Svelte CLI! (v0.6.9)
+│
+◇  Which template would you like?
+│  Svelte library
+│
+◇  Add type checking with Typescript?
+│  Yes, using Typescript syntax
+│
+◆  Project created
+│
+◇  What would you like to add to your project? (use arrow keys / space bar)
+│  none
+│
+◇  Which package manager do you want to install dependencies with?
+│  pnpm
+│
+◆  Successfully installed dependencies
+│
+◇  Project next steps ─────────────────────────────────────────────────────╮
+│                                                                          │
+│  1: cd sk-sync-bug                                                       │
+│  2: git init && git add -A && git commit -m "Initial commit" (optional)  │
+│  3: pnpm dev --open                                                      │
+│                                                                          │
+│  To close the dev server, hit Ctrl-C                                     │
+│                                                                          │
+│  Stuck? Visit us at https://svelte.dev/chat                              │
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────╯
+│
+└  You're all set!
 
-# create a new project in my-app
-npx sv create my-app
-```
+> cd sk-sync-bug
+sk-sync-bug❱ pnpm up *                                                                    
+ WARN  2 deprecated subdependencies found: glob@8.1.0, inflight@1.0.6
+Already up to date
+Progress: resolved 118, reused 77, downloaded 0, added 0, done
+Done in 3s
 
-## Developing
+sk-sync-bug❱ pnpm i                                                                       
+ WARN  2 deprecated subdependencies found: glob@8.1.0, inflight@1.0.6
+Packages: +8
+++++++++
+Progress: resolved 119, reused 77, downloaded 0, added 8, done
+node_modules/.pnpm/@sveltejs+kit@2.15.0_@sveltejs+vite-plugin-svelte@5.0.3_svelte@5.15.0_vite@6.0.5__svelte@5.15.0_vite@node_modules/.pnpm/@sveltejs+kit@2.15.0_@sveltejs+vite-plugin-svelte@5.0.3_svelte@5.15.0_vite@6.0.5__svelte@5.15.0_vite@6.0.5/node_modules/@sveltejs/kit: Running postinstall script, done in 988ms
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+devDependencies:
+- @sveltejs/vite-plugin-svelte 4.0.4
++ @sveltejs/vite-plugin-svelte 5.0.3
+- vite 5.4.11
++ vite 6.0.5
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
-
-## Building
-
-To build your library:
-
-```bash
-npm run package
-```
-
-To create a production version of your showcase app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-
-## Publishing
-
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
+Done in 2.4s
+sk-sync-bug> pnpm svelte-kit sync                                                                         
+If bundling, conditions should include development or production. If not bundling, conditions or NODE_ENV should include development or production. See https://www.npmjs.com/package/esm-env for tips on setting conditions in popular bundlers and runtimes.
 ```
