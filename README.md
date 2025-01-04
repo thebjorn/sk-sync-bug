@@ -1,3 +1,11 @@
+The error below (https://github.com/sveltejs/kit/issues/13238) was fixed in 
+https://github.com/sveltejs/kit/pull/13244
+and released in @sveltejs/kit@2.15.1
+
+The error reappears if you change from @sveltejs/adapter-auto to @sveltejs/adapter-vercel
+in svelte.config.js (latest checkin of this repo).
+
+---
 The following message is printed (multiple times if using a monorepo):
 > If bundling, conditions should include development or production. If not bundling, conditions or NODE_ENV should include development or production. See https://www.npmjs.com/package/esm-env for tips on setting conditions in popular bundlers and runtimes.
 
